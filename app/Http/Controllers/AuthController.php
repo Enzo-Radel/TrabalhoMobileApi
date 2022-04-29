@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -19,43 +20,25 @@ class AuthController extends Controller
 
             $user = User::create($data);
     
-            $token = $user->createToken('token_'.strtolower($user->name))->plainTextToken;
-    
             $response = [
                 'user' => $user,
-                'token' => $token,
             ];
             $status = 200;
         } catch (\Throwable $th) {
             $response = [
                 'user_message' => "Erro no registro de usuário",
-                'token' => $token,
             ];
-            $status = 200;
+            $status = 500;
         }
 
-        return response()->json($response, 200);
+        return response()->json($response, $status);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        // $request->validate(User::rulesLogin());
+        $request->validate(User::rulesLogin());
 
         $data = $request->all();
-
-        if (!isset($data['email'])) {
-            $response = [
-                'message' => 'Email não informado',
-            ];
-            return response()->json($response, 401);
-        }
-
-        if (!isset($data['password'])) {
-            $response = [
-                'message' => 'Senha não informada',
-            ];
-            return response()->json($response, 401);
-        }
 
         $user = User::query()->where('email', $data['email'])->first();
 
