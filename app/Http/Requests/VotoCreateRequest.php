@@ -1,34 +1,35 @@
 <?php
 
-namespace App\Models;
+namespace App\Http\Requests;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Http\FormRequest;
 
-class Voto extends Model
+class VotoCreateRequest extends FormRequest
 {
-    use HasFactory;
-
-    protected $table = 'votos';
-
-    protected $fillable = [
-        'user_id',
-        'filme',
-        'diretor',
-    ];
-
-    public function user() {
-        return $this->belongsTo(User::class);
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
     }
 
-    public static function rules() {
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
+    public function rules()
+    {
         return [
             'filme'     => 'required|integer',
             'diretor'   => 'required|integer',
         ];
     }
 
-    public static function messages() {
+    public function messages() {
         return [
             'filme.required'    => 'É necessário informar o filme',
             'filme.integer'     => 'O campo filme precisa ser um inteiro',
