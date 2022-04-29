@@ -56,4 +56,8 @@ class User extends Authenticatable
             'password' => 'required|string',
         ];
     }
+
+    public function voto() {
+        return $this->hasOne(Voto::class);
+    }
 }

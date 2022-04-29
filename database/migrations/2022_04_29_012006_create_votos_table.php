@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('votos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('filme_id')->constrained();
-            $table->foreignId('diretor_id')->constrained('diretores');
+            $table->foreignId('user_id')->unique()->constrained();
+            $table->integer('filme');
+            $table->integer('diretor');
             $table->timestamps();
         });
     }
