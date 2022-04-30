@@ -11,7 +11,6 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
-        // $request->validate(User::rulesRegister());
 
         $data = $request->all();
 
