@@ -1,12 +1,16 @@
 ## Requisitos
 
-php 8
-composer 2
-mysql
+- php 8
+
+- composer 2
+
+- mysql
 
 ## Instruções
 
-1- Clone o projeto do git
+1- Clone o projeto do git (git clone https://github.com/Enzo-Radel/TrabalhoMobileApi.git)
+
+(Próximos passos são todos dentro da pasta do projeto)
 
 2- Copiar o arquivo .env.example para .env (cp .env.example .env)
 
